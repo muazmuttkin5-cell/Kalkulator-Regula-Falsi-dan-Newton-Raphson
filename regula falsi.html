@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light" dir="ltr">
+  <head>
+    <!-- CHARSET -->
+    <meta charset="UTF-8" />
+
+    <!-- RESPONSIVE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- TITLE -->
+  <title>Materi Metode Numerik</title>
+
+    <!-- PERFORMANCE: PRECONNECT -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://www.youtube.com" />
+
+    <!-- STYLE UTAMA  di sambuang -->
+  <link rel="stylesheet" href="regula falsi.css" />
+
+    <!-- ICON LIBRARY -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    />
+  </head>
+  <body>
+    <!-- ANIMATED BACKGROUND -->
+    <div class="bg-animation"></div>
+
+    <!--DECORATION-->
+    <div class="decor decor-left"></div>
+    <div class="decor decor-right"></div>
+
+    <!-- SIDEBAR -->
+    <aside
+      id="sidebar"
+      class="sidebar"
+      role="navigation"
+      aria-label="Menu Navigasi Utama"
+      aria-hidden="true"
+    >
+      <button
+        id="closeSidebarBtn"
+        class="close-sidebar-btn"
+        aria-label="Tutup Menu"
+      >
+        <i class="bx bx-x"></i>
+      </button>
+      <h2 class="side-title">MENU</h2>
+
+   <nav class="side-nav">
+
+  <a href="beranda.html" class="side-link">
+    <i class="bx bx-home"></i> Beranda
+  </a>
+
+  <a href="newton raphson.html" class="side-link">
+    <i class="bx bx-book"></i> Newton-Raphson
+  </a>
+
+  <a href="regula falsi.html" class="side-link active">
+    <i class="bx bx-calculator"></i> Regula Falsi
+  </a>
+
+</nav>
+    </aside>
+
+    <!-- TOGGLE BUTTON -->
+    <button
+      id="toggleBtn"
+      class="toggle-btn"
+      aria-label="Buka Menu navigasi"
+      aria-controls="sidebar"
+      aria-expanded="false"
+    >
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      >
+        <path
+          d="M3 6h18M3 12h18M3 18h18"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      <!-- Ganti-->
+    </button>
+
+    <!-- TOGGLE THEME BUTTON -->
+    <button
+    id="guideBtn"
+class="guide-btn">
+    <i class="fa-solid fa-book-open"></i>
+    <span> 📖 Guide Book</span>
+</button>
+    <i class="bx bx-book-open"></i>
+
+</button>
+    
+    <button
+      id="themeToggle"
+      class="theme-btn"
+      aria-label="Aktifkan Mode Gelap"
+      aria-pressed="false"
+    >
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      >
+        <path
+          d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 12 21a9 9 0 0 0 9-8.21z"
+          fill="currentColor"
+        />
+      </svg>
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+        />
+        <path
+          d="M12 1v2M12 21v2M4.22 4.22L5.64 5.64M18.36 18.36l1.42 1.42
+              M1 12h2M21 12h2M4.22 19.78L5.64 18.36M18.36 5.64l1.42-1.42"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      <!-- Ganti-->
+    </button>
+
+    <!-- HERO CONTENT -->
+    <header class="hero" role="banner" aria-labelledby="heroTitle">
+      <div class="hero-card">
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1 class="title floating">METODE NUMERIK</h1>
+
+<h2 class="subtitle">
+Newton-Raphson & Regula Falsi
+</h2>
+
+<p class="desc">
+Halaman ini berisi materi mengenai metode Newton-Raphson
+dan Regula Falsi yang digunakan untuk menentukan akar
+persamaan nonlinier secara numerik.
+</p>
+          </div>
+          <div class="hero-img">
+            <img
+              src="illustration.png"
+              alt="Ilustrasi materi konkurensi dalam sistem operasi"
+              loading="lazy"
+              decoding="async"
+              fetchpriority="low"
+            />
+          </div>
+        </div>
+      </div>
+    </header>
+
+
+   
+<main id="mainContent" class="materi-content">
+
+  <section class="container">
+
+    <div class="materi-card">
+
+      <h2>KALKULATOR REGULA FALSI</h2>
+
+      <p>Mencari akar persamaan:</p>
+
+<label>Masukkan Fungsi f(x)</label>
+<input
+    type="text"
+    id="fungsi"
+    value="x^3-2*x-2"
+    placeholder="Contoh: x^3-2*x-2">
+
+<div class="input-row">
+
+    <div class="input-group">
+        <label>Nilai a</label>
+        <input type="number" id="a" value="1" step="any">
+    </div>
+
+    <div class="input-group">
+        <label>Nilai b</label>
+        <input type="number" id="b" value="2" step="any">
+    </div>
+
+</div>
+
+<div class="input-row">
+
+    <div class="input-group">
+        <label>Toleransi (ε)</label>
+        <input
+            type="number"
+            id="epsilon"
+            value="0.000001"
+            step="0.000001">
+    </div>
+
+    <div class="input-group">
+        <label>Maksimum Iterasi</label>
+        <input
+            type="number"
+            id="maksIterasi"
+            value="100">
+    </div>
+
+</div>
+
+
+      <button onclick="hitungRegulaFalsi()">
+        Hitung Regula Falsi
+      </button>
+
+      <div id="hasilRegula"></div>
+
+    <hr>
+
+<h2>Visualisasi Iterasi</h2>
+
+<div id="iterasiButtons"></div>
+
+<div id="infoIterasi"></div>
+
+<div id="grafikRegula"
+style="
+width:100%;
+height:520px;
+margin-top:20px;
+">
+</div>
+
+  </section>
+
+</main>
+
+
+    <!-- VIDEO SECTION -->
+    <section
+      id="video-section"
+      class="video-wrapper"
+      aria-labelledby="videoSectionTitle"
+    >
+     <h2 id="videoSectionTitle">
+
+</h2>
+      <div
+        class="video-carousel"
+        role="region"
+        aria-roledescription="carousel"
+        aria-live="polite"
+        aria-label="Carousel Video Konkurensi"
+      >
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" data-theme-element="footer" role="contentinfo">
+      <div class="footer-content container">
+        <p>
+        &copy; 2026 Website Metode Numerik
+        </p>
+
+        <nav class="footer-links" aria-label="Media Sosial">
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 5 
+                  3.66 9.13 8.44 9.88v-6.99h-2.54V12h2.54V9.8
+                  c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.23.2 2.23.2v2.46h-1.26
+                  c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99
+                  C18.34 21.13 22 17 22 12z"
+              />
+            </svg>
+          </a>
+
+          <a href="#" aria-label="Twitter">
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M22.46 6c-.77.35-1.6.58-2.46.69a4.26 4.26 0 0 0 
+                  1.88-2.35 8.28 8.28 0 0 1-2.68 1.02A4.13 4.13 0 0 0 
+                  15.5 4c-2.27 0-4.1 1.9-4.1 4.24 0 .33.03.65.1.96A11.75 
+                  11.75 0 0 1 3.15 5.1a4.33 4.33 0 0 0-.55 2.13c0 
+                  1.47.72 2.78 1.82 3.55-.67-.02-1.3-.22-1.85-.52v.05c0 
+                  2.05 1.41 3.73 3.27 4.12-.34.1-.72.16-1.12.16-.27 
+                  0-.54-.03-.8-.08.54 1.78 2.1 3.08 3.95 3.11A8.33 8.33 
+                  0 0 1 2 19.54 11.7 11.7 0 0 0 8.29 21c7.55 0 11.68-6.5 
+                  11.68-12.13 0-.2-.01-.41-.02-.61A8.5 8.5 0 0 0 22.46 6z"
+              />
+            </svg>
+          </a>
+
+          <a href="#" aria-label="GitHub">
+            <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+              <path
+                fill="currentColor"
+                d="M12 2C6.48 2 2 6.58 2 12.26c0 4.51 2.87 8.33 6.84 
+                  9.69.5.1.68-.22.68-.48v-1.7c-2.78.62-3.36-1.37-3.36-1.37
+                  -.46-1.19-1.12-1.51-1.12-1.51-.9-.63.07-.62.07-.62 
+                  1 .07 1.54 1.06 1.54 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38
+                  -2.22-.26-4.55-1.15-4.55-5.14 0-1.14.39-2.07 1.03-2.8-.1
+                  -.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.06A9.3 
+                  9.3 0 0 1 12 6.8c.85.01 1.7.12 2.5.36 1.9-1.34 2.74-1.06 
+                  2.74-1.06.55 1.4.21 2.44.1 2.7.64.73 1.02 1.66 1.02 2.8 
+                  0 3.99-2.34 4.87-4.57 5.12.36.32.69.94.69 1.9v2.82c0 
+                  .26.18.59.69.48A10.04 10.04 0 0 0 22 12.26C22 6.58 17.52 
+                  2 12 2z"
+              />
+            </svg>
+          </a>
+        </nav>
+      </div>
+    </footer>
+
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+  <script src="regula falsi.js" defer></script>
+ <!-- ===========================
+     GUIDE BOOK
+============================ -->
+
+<aside id="guidePanel" class="guide-panel">
+
+    <div class="guide-header">
+
+        <h2>📖 User Guide</h2>
+
+        <button id="closeGuide">✕</button>
+
+    </div>
+
+    <div class="guide-content">
+
+        <h3>1. Langkah Penggunaan</h3>
+
+        <ol>
+
+            <li>Masukkan fungsi f(x).</li>
+
+            <li>Contoh fungsi yang dapat digunakan:
+                <ul>
+                    <li>x^3-2*x-2</li>
+                    <li>cos(x)-x</li>
+                    <li>sin(x)-0.5</li>
+                    <li>x*cos(x)-1</li>
+                </ul>
+            </li>
+
+            <li>Masukkan nilai batas bawah (a).</li>
+
+            <li>Masukkan nilai batas atas (b).</li>
+
+            <li>Pastikan nilai <b>f(a) × f(b) &lt; 0</b> agar interval mengurung akar.</li>
+
+            <li>Masukkan nilai toleransi (ε).</li>
+
+            <li>Masukkan jumlah maksimum iterasi.</li>
+
+            <li>Klik tombol <b>Hitung Regula Falsi</b>.</li>
+
+        </ol>
+
+        <hr>
+
+        <h3>2. Membaca Hasil Perhitungan</h3>
+
+        <ul>
+
+            <li><b>Akar Hampiran</b> menampilkan hasil akar persamaan yang diperoleh.</li>
+
+            <li><b>Jumlah Iterasi</b> menunjukkan banyaknya iterasi yang dilakukan hingga memenuhi kriteria berhenti.</li>
+
+            <li><b>Tabel Iterasi</b> menampilkan nilai a, b, c, f(a), f(b), f(c), selang baru, lebar selang, dan status setiap iterasi.</li>
+
+            <li><b>Kesimpulan</b> memberikan informasi apakah proses iterasi berhasil menemukan akar hampiran.</li>
+
+        </ul>
+
+        <hr>
+
+        <h3>3. Visualisasi Iterasi</h3>
+
+        <ul>
+
+            <li>Klik tombol <b>Iter 0, Iter 1, Iter 2, ...</b> untuk melihat proses pencarian akar pada setiap iterasi.</li>
+
+            <li>Informasi nilai <b>a</b>, <b>b</b>, <b>c</b>, <b>f(a)</b>, <b>f(b)</b>, dan <b>f(c)</b> akan berubah sesuai iterasi yang dipilih.</li>
+
+            <li>Grafik akan diperbarui sehingga pengguna dapat melihat perubahan posisi garis secant dan titik akar pada setiap iterasi.</li>
+
+        </ul>
+
+        <hr>
+
+        <h3>4. Toolbar Grafik</h3>
+
+        <ul>
+
+            <li><b>Zoom</b> digunakan untuk memperbesar tampilan grafik.</li>
+
+            <li><b>Pan</b> digunakan untuk menggeser tampilan grafik.</li>
+
+            <li><b>Reset Axes</b> digunakan untuk mengembalikan grafik ke tampilan awal.</li>
+
+            <li><b>Gambar Camera</b> digunakan untuk download gamabar grafik</li>
+        </ul>
+
+        <hr>
+
+        <h3>5. Catatan</h3>
+
+        <ul>
+
+            <li>Gunakan <b>*</b> untuk operasi perkalian.</li>
+
+            <li>Gunakan <b>^</b> untuk operasi perpangkatan.</li>
+
+            <li>Pastikan fungsi ditulis dengan format yang benar agar dapat dihitung oleh sistem.</li>
+
+            <li>Metode Regula Falsi hanya dapat digunakan jika interval awal memenuhi syarat <b>f(a) × f(b) &lt; 0</b>.</li>
+
+        </ul>
+
+    </div>
+
+</aside>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Metode Numerik - Newton Raphson & Regula Falsi</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    />
+   <link rel="stylesheet" href="beranda.css" />
+  </head>
+  <body>
+    <!-- ANIMATED BACKGROUND -->
+    <div class="bg-animation"></div>
+
+    <!--BACKGROUND ANIMATION-->
+    <div class="decor decor-left"></div>
+    <div class="decor decor-right"></div>
+
+    <!-- SIDEBAR -->
+    <aside id="sidebar" class="sidebar">
+      <button
+        id="closeSidebarBtn"
+        class="close-sidebar-btn"
+        aria-label="Tutup Menu"
+      >
+        <i class="bx bx-x"></i>
+      </button>
+      <h2 class="side-title">MENU</h2>
+
+      <!--Tambah Navbar-->
+<nav class="side-nav">
+
+  <a href="beranda.html" class="side-link active">
+    <i class="bx bx-home"></i> Beranda
+  </a>
+
+  <a href="newton raphson.html" class="side-link">
+    <i class="bx bx-book"></i> Newton-Raphson
+  </a>
+
+  <a href="regula falsi.html" class="side-link">
+    <i class="bx bx-calculator"></i> Regula Falsi
+  </a>
+
+</nav>
+
+    </aside>
+
+    <!-- TOGGLE SIDEBAR BUTTON -->
+    <button
+      id="toggleBtn"
+      class="toggle-btn"
+      aria-label="Buka Menu navigasi"
+      aria-controls="sidebar"
+      aria-expanded="false"
+    >
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      >
+        <path
+          d="M3 6h18M3 12h18M3 18h18"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      <!-- Ganti-->
+    </button>
+
+    <!-- TOGGLE THEME BUTTON -->
+    <button
+      id="themeToggle"
+      class="theme-btn"
+      aria-label="Aktifkan Mode Gelap"
+      aria-pressed="false"
+    >
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      >
+        <path
+          d="M21 12.79A9 9 0 0 1 11.21 3 7 7 0 1 0 12 21a9 9 0 0 0 9-8.21z"
+          fill="currentColor"
+        />
+      </svg>
+      <svg
+        class="icon"
+        viewBox="0 0 24 24"
+        width="24"
+        height="24"
+        aria-hidden="true"
+      >
+        <circle
+          cx="12"
+          cy="12"
+          r="5"
+          stroke="currentColor"
+          stroke-width="2"
+          fill="none"
+        />
+        <path
+          d="M12 1v2M12 21v2M4.22 4.22L5.64 5.64M18.36 18.36l1.42 1.42
+              M1 12h2M21 12h2M4.22 19.78L5.64 18.36M18.36 5.64l1.42-1.42"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        />
+      </svg>
+      <!-- Ganti-->
+    </button>
+
+    <!-- HERO CONTENT -->
+    <header class="hero">
+      <div class="hero-card">
+        <div class="hero-content">
+          <div class="hero-text">
+           <h1 class="title floating">METODE</h1>
+<h2 class="subtitle">NUMERIK</h2>
+          
+
+          <p class="desc">
+Website pembelajaran Metode Numerik yang membahas
+Metode Newton-Raphson dan Regula Falsi untuk menentukan
+akar persamaan nonlinier.
+
+Website ini dilengkapi materi, simulasi perhitungan,
+serta visualisasi proses iterasi agar lebih mudah
+dipahami oleh mahasiswa.
+            </p>
+<button id="openGuide" class="guide-btn">
+    📖 Guide Book
+</button>
+
+<div class="btn-group">
+  <a href="newton raphson.html" class="btn">
+    NEWTON-RAPHSON
+  </a>
+
+  <a href="regula falsi.html" class="btn">
+    REGULA FALSI
+  </a>
+</div>
+
+
+
+          <div class="hero-img">
+            <img src="illustration.png" alt="Ilustrasi PNG" />
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- FITUR UTAMA SECTION -->
+    <main class="features">
+      <h2 class="features-title">FITUR UTAMA WEBSITE</h2>
+<section class="features-grid">
+
+  <article class="feature-card">
+    <i class="bx bx-math"></i>
+
+    <h3>Newton-Raphson</h3>
+
+   <p>
+Metode Newton-Raphson merupakan metode terbuka 
+untuk mencari akar persamaan menggunakan satu 
+tebakan awal dan turunan pertama fungsi. Metode 
+ini memiliki kecepatan konvergensi yang sangat 
+tinggi apabila proses iterasinya konvergen.
+</p>
+  </article>
+
+  <article class="feature-card">
+    <i class="bx bx-line-chart"></i>
+
+    <h3>Regula Falsi</h3>
+
+<p>
+Metode Regula Falsi merupakan metode tertutup 
+untuk mencari akar persamaan dengan menggunakan 
+dua batas interval yang mengurung akar sehingga 
+nilai fungsi pada kedua batas memiliki tanda yang 
+berbeda. Proses iterasi dilakukan hingga diperoleh 
+hampiran akar yang memenuhi kriteria galat.
+</p>
+  </article>
+
+</section>
+
+    </main>
+
+    <!-- IDENTITAS KELOMPOK -->
+    <section class="kelompok-section">
+      <div class="kelompok-card">
+
+        <div class="kelompok-header">
+          <div class="kelompok-icon">
+            <i class="bx bx-group"></i>
+          </div>
+          <div>
+            <p class="kelompok-label">Dibuat oleh</p>
+            <h2 class="kelompok-judul">KELOMPOK 6</h2>
+          </div>
+        </div>
+
+        <div class="kelompok-divider"></div>
+
+        <ul class="kelompok-list">
+          <li class="kelompok-item">
+            <span class="kelompok-nomor">01</span>
+            <div class="kelompok-info">
+              <span class="kelompok-nama">M. Rapli</span>
+              <span class="kelompok-nim">2403010184</span>
+            </div>
+          </li>
+          <li class="kelompok-item">
+            <span class="kelompok-nomor">02</span>
+            <div class="kelompok-info">
+              <span class="kelompok-nama">Muadz Muttaqin</span>
+              <span class="kelompok-nim">2403010202</span>
+            </div>
+          </li>
+          <li class="kelompok-item">
+            <span class="kelompok-nomor">03</span>
+            <div class="kelompok-info">
+              <span class="kelompok-nama">Azka Muflih As Saifi</span>
+              <span class="kelompok-nim">2403010206</span>
+            </div>
+          </li>
+        </ul>
+
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+      <p>
+      <p>
+  &copy; 2026 Website Metode Numerik
+</p>
+      </p>
+      <div class="footer-links">
+        <a href="#"><i class="bx bxl-facebook"></i></a>
+        <a href="#"><i class="bx bxl-twitter"></i></a>
+        <a href="#"><i class="bx bxl-github"></i></a>
+      </div>
+    </footer>
+<div class="guide-modal" id="guideModal">
+
+    <div class="guide-content">
+
+        <span class="close-guide">&times;</span>
+
+        <h2>📖 Guide Book</h2>
+
+        <h3>1. Tujuan Website</h3>
+
+        <p>
+            Website ini dibuat sebagai media pembelajaran untuk membantu pengguna
+            memahami dan menghitung akar persamaan nonlinier menggunakan metode
+            Regula Falsi dan Newton-Raphson sesuai materi pada Modul Metode Numerik.
+        </p>
+
+        <h3>2. Menu Beranda</h3>
+
+        <p>
+            Halaman Beranda berisi informasi mengenai website, penjelasan singkat
+            setiap metode, serta tombol navigasi menuju halaman Regula Falsi dan
+            Newton-Raphson.
+        </p>
+
+        <h3>3. Halaman Regula Falsi</h3>
+
+        <p>
+            Pada halaman ini pengguna dapat memasukkan fungsi, batas bawah (a),
+            batas atas (b), nilai toleransi galat, dan jumlah iterasi maksimum.
+            Setelah tombol <b>Hitung</b> ditekan, sistem akan menampilkan akar
+            hampiran, tabel iterasi, grafik fungsi, dan visualisasi setiap proses
+            iterasi.
+        </p>
+
+        <h3>4. Halaman Newton-Raphson</h3>
+
+        <p>
+            Pada halaman ini pengguna dapat memasukkan fungsi, turunan fungsi,
+            tebakan awal (x₀), nilai toleransi galat, dan jumlah iterasi maksimum.
+            Sistem akan menampilkan akar hampiran, tabel iterasi, grafik fungsi,
+            dan visualisasi proses perhitungan.
+        </p>
+
+        <h3>5. Cara Menulis Fungsi</h3>
+
+        <p>Gunakan format penulisan berikut.</p>
+
+<pre>
+Pangkat     : x^3
+Perkalian   : 2*x
+Cosinus     : cos(x)
+
+
+Contoh :
+
+x^3-2*x-2
+cos(x)-x
+</pre>
+
+
+
+    </div>
+
+</div>
+    <!--Bantuan menggunakan Website-->
+
+
+   <script src="beranda.js"></script>
+  </body>
+</html>
