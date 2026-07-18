@@ -1,0 +1,1332 @@
+/* ========== GOOGLE FONTS ========== */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+
+/* =====================================================
+   CSS VARIABLES — LIGHT MODE (DEFAULT)
+===================================================== */
+:root,
+:root[data-theme="light"] {
+  --text:         #0d1b2a;
+  --text-alt:     #1b263b;
+  --bg:           #f5f7ff;
+  --card-bg:      rgba(255, 255, 255, 0.85);
+  --glass-bg:     rgba(255, 255, 255, 0.45);
+  --input-bg:     rgba(255, 255, 255, 0.95);
+  --input-color:  #0d1b2a;
+  --primary:      #2563eb;
+  --shadow:       rgba(0, 0, 0, 0.12);
+  --border:       rgba(0, 0, 0, 0.08);
+  --sidebar-bg:   rgba(255, 255, 255, 0.75);
+  --btn-hover:    #1d4ed8;
+  --tabel-border: rgba(0, 0, 0, 0.12);
+  --tabel-stripe: rgba(0, 0, 0, 0.03);
+  --hasil-border: #2563eb;
+  --error-bg:     rgba(239, 68, 68, 0.08);
+  --error-text:   #dc2626;
+  --error-border: rgba(239, 68, 68, 0.3);
+}
+
+
+/* =====================================================
+   CSS VARIABLES — DARK MODE
+   Menggunakan :root[data-theme="dark"] TANPA @media wrapper
+   agar toggle manual JS (setAttribute data-theme) bekerja.
+===================================================== */
+:root[data-theme="dark"] {
+  --text:         #e8eaf0;
+  --text-alt:     #b0bcd4;
+  --bg:           #0d1117;
+  --card-bg:      rgba(30, 35, 50, 0.92);
+  --glass-bg:     rgba(255, 255, 255, 0.07);
+  --input-bg:     rgba(255, 255, 255, 0.08);
+  --input-color:  #e8eaf0;
+  --primary:      #3b82f6;
+  --shadow:       rgba(0, 0, 0, 0.55);
+  --border:       rgba(255, 255, 255, 0.1);
+  --sidebar-bg:   rgba(15, 20, 35, 0.95);
+  --btn-hover:    #2563eb;
+  --tabel-border: rgba(255, 255, 255, 0.12);
+  --tabel-stripe: rgba(255, 255, 255, 0.04);
+  --hasil-border: #3b82f6;
+  --error-bg:     rgba(239, 68, 68, 0.15);
+  --error-text:   #fca5a5;
+  --error-border: rgba(239, 68, 68, 0.4);
+}
+
+
+/* =====================================================
+   RESET & BASE
+===================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  overflow-x: hidden;
+  color: var(--text);
+  background: var(--bg);
+  transition: background 0.35s ease, color 0.35s ease;
+}
+
+
+/* =====================================================
+   ANIMATED BACKGROUND
+===================================================== */
+.bg-animation {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(-45deg, #03204a, #0f2031, #000000);
+  background-size: 400% 400%;
+  animation: gradientMove 12s ease infinite;
+  z-index: -10;
+}
+
+[data-theme="light"] .bg-animation {
+  background: linear-gradient(-45deg, #e8f0fe, #dbeafe, #eff6ff);
+  background-size: 400% 400%;
+}
+
+@keyframes gradientMove {
+  0%   { background-position: 0 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0 50%; }
+}
+
+
+/* =====================================================
+   DECOR
+===================================================== */
+.decor {
+  position: fixed;
+  width: 280px;
+  height: 280px;
+  border-radius: 30px;
+  transform: rotate(25deg);
+  opacity: 0.1;
+  filter: blur(12px);
+  z-index: -5;
+  pointer-events: none;
+}
+
+.decor-left  { background: #00c0ff; top: 20%; left: -120px; }
+.decor-right { background: #0070ff; bottom: 15%; right: -120px; }
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -280px;
+  width: 260px;
+  height: 100vh;
+  padding: 30px 20px;
+  backdrop-filter: blur(16px);
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+  box-shadow: 4px 0 20px var(--shadow);
+  transition: left 0.35s ease;
+  z-index: 200;
+}
+
+.sidebar.open {
+  left: 0;
+}
+
+.side-title {
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 20px;
+  font-size: 22px;
+  letter-spacing: 2px;
+  color: var(--text);
+}
+
+.side-nav {
+  display: flex;
+  flex-direction: column;
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  color: var(--text-alt);
+  text-decoration: none;
+  border-radius: 8px;
+  transition: 0.25s;
+}
+
+.side-link:hover,
+.side-link.active {
+  background: var(--glass-bg);
+  color: var(--text);
+  transform: scale(1.03);
+}
+
+/* Tombol tutup sidebar */
+.close-sidebar-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 28px;
+  color: var(--text-alt);
+  padding: 5px;
+  border-radius: 5px;
+  transition: 0.25s;
+  line-height: 1;
+}
+
+.close-sidebar-btn:hover {
+  color: var(--text);
+  transform: scale(1.1);
+}
+
+
+/* =====================================================
+   TOGGLE BUTTON (hamburger)
+===================================================== */
+.toggle-btn {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  color: var(--text);
+  z-index: 300;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.toggle-btn:hover {
+  transform: scale(1.08);
+  background: var(--card-bg);
+}
+
+
+/* =====================================================
+   THEME TOGGLE BUTTON
+===================================================== */
+.theme-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--text);
+  z-index: 300;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.theme-btn:hover {
+  transform: scale(1.08);
+  background: var(--card-bg);
+}
+
+/* Kontrol ikon SVG */
+.theme-btn svg {
+  display: none;
+  width: 22px;
+  height: 22px;
+  fill: var(--text);
+  stroke: var(--text);
+}
+
+/* Default (light): tampilkan ikon bulan */
+.theme-btn svg:first-child { display: block; }
+.theme-btn svg:last-child  { display: none;  }
+
+/* Dark aktif: tampilkan ikon matahari */
+.theme-btn.dark-mode-active svg:first-child { display: none;  }
+.theme-btn.dark-mode-active svg:last-child  { display: block; }
+
+
+/* =====================================================
+   HERO SECTION
+===================================================== */
+.hero {
+  padding: 120px 40px 60px;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-card {
+  display: flex;
+  gap: 40px;
+  color: var(--text);
+  background: var(--card-bg);
+  padding: 50px;
+  border-radius: 20px;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 0 30px var(--shadow);
+  max-width: 900px;
+  width: 100%;
+  animation: floatCard 0.8s ease forwards;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid var(--border);
+}
+
+.hero-card * {
+  text-align: left !important;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  width: 100%;
+}
+
+.hero-text {
+  flex: 1;
+  color: var(--text-alt);
+}
+
+@keyframes floatCard {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.title {
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: 7px;
+  background: linear-gradient(to right, var(--text), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  display: inline-block;
+  transition: transform 0.2s ease-out;
+}
+
+.subtitle {
+  margin-top: -25px;
+  font-size: 26px;
+  background: linear-gradient(to right, var(--text-alt), var(--primary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.desc {
+  color: var(--text-alt);
+  line-height: 1.7;
+  margin-top: 12px;
+  font-size: 0.95rem;
+}
+
+.hero-img {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.hero-img img {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  animation: floatImg 4s ease-in-out infinite;
+}
+
+@keyframes floatImg {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
+}
+
+
+/* =====================================================
+   MATERI CONTENT WRAPPER
+===================================================== */
+.materi-content {
+  padding: 60px 40px 80px;
+  min-height: 60vh;
+}
+
+/* Container section */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+
+/* =====================================================
+   MATERI CARD (wadah kalkulator)
+===================================================== */
+.materi-card {
+  background: var(--card-bg);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 24px var(--shadow);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  text-align: left;
+  transition: background 0.35s ease;
+}
+
+.materi-card h2 {
+  color: var(--text);
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 1.3rem;
+  letter-spacing: 1px;
+}
+
+.materi-card p {
+  color: var(--text-alt);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+
+/* =====================================================
+   LAYOUT BARU: Form Input (kiri) + Grafik (kanan)
+   Murni pengaturan posisi; tidak mengubah gaya elemen
+   di dalamnya (input, tombol, grafik, panel, dsb).
+===================================================== */
+.nr-layout-atas {
+  display: grid;
+  grid-template-columns: minmax(280px, 420px) 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+.nr-kolom-kiri,
+.nr-kolom-kanan {
+  min-width: 0;
+}
+
+@media (max-width: 900px) {
+  .nr-layout-atas {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* --- Label --- */
+.materi-card label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text);
+}
+
+.nr-label-hint {
+  font-weight: 400;
+  font-size: 11px;
+  opacity: 0.55;
+  margin-left: 5px;
+}
+
+/* --- Input fields --- */
+.materi-card input[type="text"],
+.materi-card input[type="number"] {
+  width: 100%;
+  padding: 12px 14px;
+  margin: 0 0 18px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--input-bg);
+  color: var(--input-color);
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, background 0.35s ease, color 0.35s ease;
+}
+
+.materi-card input[type="text"]:focus,
+.materi-card input[type="number"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.25);
+}
+
+/* Input read-only (turunan) */
+.nr-input-readonly {
+  background: var(--glass-bg) !important;
+  color: var(--text-alt) !important;
+  cursor: not-allowed !important;
+  font-style: italic;
+  border-style: dashed !important;
+}
+
+/* --- Tombol hitung --- */
+.materi-card button {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 15px;
+  font-family: "Poppins", sans-serif;
+  background: var(--primary);
+  color: #ffffff;
+  transition: 0.3s;
+  margin-top: 4px;
+  letter-spacing: 0.5px;
+}
+
+.materi-card button:hover {
+  background: var(--btn-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+}
+
+
+/* =====================================================
+   HASIL: WRAPPER & TABEL ITERASI
+===================================================== */
+#hasilNR {
+  margin-top: 30px;
+  overflow-x: auto;
+}
+
+#hasilNR h2 {
+  color: var(--text);
+  margin-bottom: 12px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+#hasilNR table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 13.5px;
+  min-width: 560px;
+}
+
+#hasilNR th,
+#hasilNR td {
+  border: 1px solid var(--tabel-border);
+  padding: 10px 8px;
+  text-align: center;
+  color: var(--text);
+}
+
+#hasilNR th {
+  background: var(--primary);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+#hasilNR tr:nth-child(even) td {
+  background: var(--tabel-stripe);
+}
+
+
+/* =====================================================
+   HASIL: KESIMPULAN AKHIR
+===================================================== */
+.hasil-akhir {
+  margin-top: 22px;
+  padding: 22px 26px;
+  border-radius: 12px;
+  background: var(--glass-bg);
+  border-left: 4px solid var(--hasil-border);
+  text-align: left;
+  line-height: 2;
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--hasil-border);
+}
+
+.hasil-akhir h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  color: var(--text);
+  font-size: 1.05rem;
+}
+
+.hasil-akhir p {
+  margin: 4px 0;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.nr-status-konvergen {
+  color: #22c55e;
+  font-weight: 700;
+}
+
+.nr-status-divergen {
+  color: #f87171;
+  font-weight: 700;
+}
+
+
+/* =====================================================
+   PESAN ERROR VALIDASI
+===================================================== */
+.nr-pesan-error {
+  margin-top: 15px;
+  padding: 12px 16px;
+  background: var(--error-bg);
+  border: 1px solid var(--error-border);
+  border-radius: 10px;
+  color: var(--error-text);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   GRAFIK NEWTON-RAPHSON
+===================================================== */
+.nr-grafik-wrapper {
+  margin-top: 36px;
+  padding: 28px 24px;
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 4px 18px var(--shadow);
+  transition: background 0.35s ease;
+}
+
+.nr-grafik-judul {
+  margin: 0 0 18px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text);
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.nr-grafik-container {
+  position: relative;
+  width: 100%;
+  max-height: 460px;
+}
+
+.nr-grafik-container canvas {
+  width: 100% !important;
+  max-height: 460px;
+}
+
+
+/* =====================================================
+   PANEL INFORMASI ITERASI (FITUR TAMBAHAN)
+   Tidak mengubah grafik/canvas yang sudah ada, hanya
+   menambahkan wadah flex + panel di sebelah kanan.
+===================================================== */
+.nr-grafik-flex {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.nr-grafik-flex .nr-grafik-container {
+  min-width: 0; /* agar chart.js tetap bisa menyusut wajar */
+}
+
+.nr-info-panel {
+  width: 100%;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  max-height: 260px;
+  transition: background 0.35s ease, border-color 0.35s ease;
+}
+
+.nr-info-panel-judul {
+  margin: 0 0 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.4px;
+  color: var(--text);
+}
+
+.nr-info-panel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.nr-info-panel-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.nr-info-panel-list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.nr-info-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: var(--text-alt);
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+
+.nr-info-card strong {
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.nr-info-card:hover {
+  border-color: var(--primary);
+}
+
+.nr-info-card.nr-info-card-aktif {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.nr-info-card.nr-info-card-aktif strong {
+  color: #ffffff;
+}
+
+@media (max-width: 900px) {
+  .nr-grafik-flex {
+    flex-direction: column;
+  }
+
+  .nr-info-panel {
+    max-width: 100%;
+    flex: 1 1 auto;
+    max-height: 220px;
+  }
+}
+
+
+/* =====================================================
+   VIDEO SECTION
+===================================================== */
+.video-wrapper {
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.video-wrapper h2 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+.footer {
+  padding: 40px 20px;
+  text-align: center;
+  background: var(--glass-bg);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+}
+
+.footer p {
+  margin: 0 0 16px;
+  color: var(--text-alt);
+  font-size: 14px;
+}
+
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.footer-links a {
+  color: var(--text-alt);
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+}
+
+.footer-links a:hover {
+  color: var(--text);
+  transform: scale(1.2);
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+
+/* =====================================================
+   FLOATING BUBBLES
+===================================================== */
+.bubble {
+  position: fixed;
+  bottom: -100px;
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  animation: bubbleFloat 12s linear infinite;
+  pointer-events: none;
+  filter: blur(1px);
+  z-index: -1;
+}
+
+@keyframes bubbleFloat {
+  0%   { transform: translateY(0) scale(1);    opacity: 0; }
+  10%  { opacity: 0.4; }
+  100% { transform: translateY(-110vh) scale(1.5); opacity: 0; }
+}
+
+
+/* =====================================================
+   PARTICLES
+===================================================== */
+.particle {
+  position: fixed;
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  filter: blur(2px);
+  animation: blink 4s infinite ease-in-out;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 0.1; }
+  50%       { opacity: 0.55; }
+}
+
+
+/* =====================================================
+   FADE-UP ANIMATION
+===================================================== */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.fade-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+@media (max-width: 768px) {
+  .hero {
+    padding: 90px 16px 40px;
+  }
+
+  .hero-card {
+    padding: 28px 20px;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hero-img {
+    display: none;
+  }
+
+  .title {
+    font-size: 34px;
+    letter-spacing: 4px;
+  }
+
+  .subtitle {
+    font-size: 18px;
+    margin-top: -8px;
+  }
+
+  .materi-content {
+    padding: 36px 16px 60px;
+  }
+
+  .materi-card {
+    padding: 24px 16px;
+  }
+
+  #hasilNR table {
+    font-size: 12px;
+  }
+
+  #hasilNR th,
+  #hasilNR td {
+    padding: 7px 4px;
+  }
+
+  .nr-grafik-wrapper {
+    padding: 18px 12px;
+  }
+
+  .nr-grafik-container {
+    max-height: 320px;
+  }
+
+  .nr-grafik-container canvas {
+    max-height: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .title    { font-size: 26px; letter-spacing: 2px; }
+  .subtitle { font-size: 15px; }
+
+  .materi-card button {
+    font-size: 14px;
+    padding: 12px;
+  }
+}
+
+
+/* =====================================================
+   GUIDE BOOK (FITUR BARU)
+   Tombol + modal, mengikuti variabel tema yang sudah ada.
+   Tidak mengubah selector/elemen lain di file ini.
+===================================================== */
+.guidebook-btn {
+  position: fixed;
+  top: 20px;
+  left: 100px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  padding: 10px 16px;
+  border-radius: 12px;
+  cursor: pointer;
+  color: var(--text);
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 300;
+  transition: 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.guidebook-btn:hover {
+  transform: scale(1.05);
+  background: var(--card-bg);
+}
+
+/* --- Overlay --- */
+.guidebook-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(3px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: guidebookFadeIn 0.2s ease;
+}
+
+@keyframes guidebookFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* --- Modal Box --- */
+.guidebook-modal {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  width: 100%;
+  max-width: 720px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+  overflow: hidden;
+  animation: guidebookSlideUp 0.25s ease;
+}
+
+@keyframes guidebookSlideUp {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.guidebook-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.guidebook-header h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.guidebook-close {
+  background: transparent;
+  border: none;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--text-alt);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.guidebook-close:hover {
+  background: var(--glass-bg);
+  color: var(--text);
+}
+
+.guidebook-body {
+  padding: 20px 24px;
+  overflow-y: auto;
+}
+
+.guidebook-body::-webkit-scrollbar {
+  width: 7px;
+}
+
+.guidebook-body::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.guidebook-section {
+  margin-bottom: 22px;
+}
+
+.guidebook-section:last-child {
+  margin-bottom: 0;
+}
+
+.guidebook-section h3 {
+  margin: 0 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.guidebook-section p {
+  margin: 0 0 8px;
+  font-size: 13.5px;
+  line-height: 1.65;
+  color: var(--text-alt);
+}
+
+.guidebook-formula {
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  text-align: center;
+  color: var(--text);
+}
+
+.guidebook-list {
+  margin: 0 0 8px;
+  padding-left: 20px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text-alt);
+}
+
+.guidebook-list li {
+  margin-bottom: 4px;
+}
+
+.guidebook-note {
+  font-size: 12.5px;
+  font-style: italic;
+  opacity: 0.8;
+}
+
+.guidebook-section code {
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 1px 6px;
+  font-family: "Courier New", monospace;
+  color: var(--text);
+}
+
+.guidebook-footer {
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: flex-end;
+  flex-shrink: 0;
+}
+
+.guidebook-btn-tutup {
+  background: var(--primary);
+  color: #ffffff;
+  border: none;
+  padding: 10px 22px;
+  border-radius: 10px;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.guidebook-btn-tutup:hover {
+  transform: scale(1.04);
+  opacity: 0.92;
+}
+
+@media (max-width: 768px) {
+  .guidebook-btn {
+    top: auto;
+    bottom: 20px;
+    left: 20px;
+    font-size: 13px;
+    padding: 9px 14px;
+  }
+
+  .guidebook-modal {
+    max-height: 90vh;
+  }
+
+  .guidebook-header,
+  .guidebook-body,
+  .guidebook-footer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+
+/* =====================================================
+   AUTO CORRECT INFO BOX (FITUR BARU)
+   Mengikuti variabel tema yang sudah ada.
+===================================================== */
+.nr-autocorrect-info {
+  margin: -10px 0 16px;
+  padding: 9px 14px;
+  border-radius: 8px;
+  font-size: 12.5px;
+  line-height: 1.5;
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  color: var(--text-alt);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nr-autocorrect-sukses {
+  background: var(--glass-bg);
+  border-color: var(--primary);
+  color: var(--text);
+}
+
+.nr-autocorrect-error {
+  background: var(--error-bg);
+  border-color: var(--error-border);
+  color: var(--error-text);
+}
+
+.nr-autocorrect-catatan {
+  margin: 10px 0;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  background: var(--glass-bg);
+  border: 1px solid var(--primary);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+
+/* =====================================================
+   TOOLBAR ZOOM GRAFIK (FITUR BARU)
+===================================================== */
+.nr-zoom-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 16px;
+}
+
+.nr-zoom-btn {
+  background: var(--glass-bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  padding: 7px 14px;
+  border-radius: 8px;
+  font-family: "Poppins", sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.nr-zoom-btn:hover {
+  background: var(--card-bg);
+  transform: scale(1.04);
+}
+
+.nr-lihat-grafik-btn {
+  border-color: var(--primary);
+  font-weight: 600;
+}
+
+
+/* =====================================================
+   MODAL "LIHAT GRAFIK" — FULL SCREEN (FITUR BARU)
+   Mengikuti variabel tema yang sudah ada (Dark/Light Mode).
+   Tidak mengubah style grafik utama sama sekali.
+===================================================== */
+.grafikmodal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: guidebookFadeIn 0.2s ease;
+}
+
+.grafikmodal-box {
+  background: var(--card-bg);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  width: 100%;
+  height: 100%;
+  max-width: 1400px;
+  max-height: 95vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  animation: guidebookSlideUp 0.25s ease;
+}
+
+.grafikmodal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.grafikmodal-header h2 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.grafikmodal-close {
+  background: transparent;
+  border: none;
+  font-size: 26px;
+  line-height: 1;
+  color: var(--text-alt);
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 8px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.grafikmodal-close:hover {
+  background: var(--glass-bg);
+  color: var(--text);
+}
+
+.grafikmodal-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 14px 24px;
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+
+.grafikmodal-canvas-wrap {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.grafikmodal-canvas-wrap canvas {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: 100%;
+}
+
+@media (max-width: 768px) {
+  .grafikmodal-header,
+  .grafikmodal-toolbar,
+  .grafikmodal-canvas-wrap {
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+}
